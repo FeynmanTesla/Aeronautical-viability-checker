@@ -30,9 +30,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bb09f3a-2ec4-4e0f-8e36-29dbbb51e0cb" name="Default Changelist" comment="made some functionality with rusty_machine; realised persisting models from rusty_machines is difficult so starting to use tensorflow instead">
+    <list default="true" id="9bb09f3a-2ec4-4e0f-8e36-29dbbb51e0cb" name="Default Changelist" comment="stripped out existing ML stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cli/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/drag_coeff_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/drag_coeff_estimator/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/lift_coeff_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/lift_coeff_estimator/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/mod.rs" afterDir="false" />
@@ -116,7 +117,7 @@
       <workItem from="1601083020407" duration="53000" />
       <workItem from="1601129609482" duration="16422000" />
       <workItem from="1601206908257" duration="10928000" />
-      <workItem from="1601224109897" duration="6514000" />
+      <workItem from="1601224109897" duration="10058000" />
     </task>
     <task id="LOCAL-00001" summary="set up basic structure">
       <created>1601078307510</created>
@@ -167,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601233203924</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="stripped out existing ML stuff">
+      <created>1601242104727</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601242104727</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,7 +198,8 @@
     <MESSAGE value="started on modules to implement the lift and drag coefficients" />
     <MESSAGE value="improved interface from the CLI to the neural net modules" />
     <MESSAGE value="made some functionality with rusty_machine; realised persisting models from rusty_machines is difficult so starting to use tensorflow instead" />
-    <option name="LAST_COMMIT_MESSAGE" value="made some functionality with rusty_machine; realised persisting models from rusty_machines is difficult so starting to use tensorflow instead" />
+    <MESSAGE value="stripped out existing ML stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="stripped out existing ML stuff" />
   </component>
   <component name="WindowStateProjectService">
     <state x="738" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601075375250">
@@ -241,10 +250,10 @@
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state x="4" y="27" width="2338" height="1031" key="SettingsEditor/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601209196694" />
-    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601233205199">
+    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601242105822">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601233205199" />
+    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601242105822" />
     <state x="890" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1601134056918">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
