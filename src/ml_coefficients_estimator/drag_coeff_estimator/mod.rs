@@ -1,7 +1,4 @@
-// TODO: make a machine learning module here that predicts the drag coefficient from a 3D model given by the user (STL (with a .STL extension), COLLADA (with a .DAE extension), etc)
-
 use std::fs::File;
-
 use randomforest::{RandomForestRegressor, RandomForestRegressorOptions};
 use randomforest::criterion::Mse;
 use randomforest::table::{Table, TableBuilder};
