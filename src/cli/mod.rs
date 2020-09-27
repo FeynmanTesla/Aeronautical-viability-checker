@@ -1,8 +1,6 @@
 use std::borrow::Borrow;
 use std::io;
 
-use rusty_machine::linalg::Matrix;
-
 #[path = "../viable/mod.rs"]
 mod viable;
 
