@@ -19,9 +19,9 @@ pub fn run_cli() {
     let wing_area: f64 = get_f64_user_input("What is the wing area of the aircraft (metres squared)?");
     let stl_model_file_path: String = get_string_user_input("What is the filepath of the STL file modelling the aircraft?");
 
-    let processed_stl_file: Matrix<f64> = ml_coefficients_estimator::process_stl_file(stl_model_file_path.borrow());
-    let lift_coefficient: f64 = ml_coefficients_estimator::get_lift_coefficient(&processed_stl_file);
-    let drag_coefficient: f64 = ml_coefficients_estimator::get_drag_coefficient(&processed_stl_file);
+    let processed_stl_file: &[f64] = ml_coefficients_estimator::process_stl_file(stl_model_file_path.borrow());
+    let lift_coefficient: f64 = ml_coefficients_estimator::estimate_lift_coefficient(&processed_stl_file);
+    let drag_coefficient: f64 = ml_coefficients_estimator::estimate_drag_coefficient(&processed_stl_file);
 
     let altitudes_thrusts_csv_file_path: String = get_string_user_input("What is the path to the altitudes-thrusts CSV file?");
     let altitudes_thrusts: &Vec<(i64, f64)> = &thrust::get_altitudes_thrusts(altitudes_thrusts_csv_file_path.borrow());
