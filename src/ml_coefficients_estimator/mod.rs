@@ -45,7 +45,7 @@ fn get_random_forest_regressor(drag_not_lift: bool) -> RandomForestRegressor {
     }
 }
 
-fn get_training_data(drag_not_lift: bool) -> Table<'static> {
+fn get_training_data(drag_not_lift: bool) -> TableBuilder {
     let mut table_builder: TableBuilder = TableBuilder::new();
     let num_dataset_values_training: i64 = get_num_dataset_values_training(drag_not_lift);
 
@@ -57,11 +57,12 @@ fn get_training_data(drag_not_lift: bool) -> Table<'static> {
     for (xs, y) in training_data {
         table_builder.add_row(xs, *y);
     }
-    table_builder.build().unwrap()
+    table_builder
 }
 
 fn make_random_forest_regressor(drag_not_lift: bool) -> RandomForestRegressor {
-    let table: Table = get_training_data(drag_not_lift);
+    let table_builder: TableBuilder = get_training_data(drag_not_lift);
+    let table: Table = table_builder.build().unwrap();
 
     let regressor: RandomForestRegressor = RandomForestRegressorOptions::new()
         .seed(0)
@@ -81,28 +82,26 @@ fn get_training_testing_outputs(drag_not_lift: bool) -> Vec<f64> {
     if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_OUTPUTS } else { lift_coeff_estimator::TRAINING_TESTING_OUTPUTS }
 }
 
-fn get_testing_data(drag_not_lift: bool) -> Vec<(&'static Vec<f64>, &'static f64)> {
+fn test_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift: bool) {
+    let mut sum_squared_diffs: f64 = 0.0;
+    let mut number: i64 = 0;
+
     let num_dataset_values_training: i64 = get_num_dataset_values_training(drag_not_lift);
-    let training_testing_inputs = get_training_testing_inputs(drag_not_lift);
-    let training_testing_outputs = get_training_testing_outputs(drag_not_lift);
+    let training_testing_inputs: Vec<Vec<f64>> = get_training_testing_inputs(drag_not_lift);
+    let training_testing_outputs: Vec<f64> = get_training_testing_outputs(drag_not_lift);
     assert_eq!(training_testing_inputs.len(), training_testing_outputs.len());
 
     let start_index: usize = num_dataset_values_training as usize;
     let stop_index: usize = training_testing_inputs.len() as usize - 1 as usize;
 
-    let data: Vec<(&Vec<f64>, &f64)> = (&training_testing_inputs[start_index..stop_index]).iter().zip((&training_testing_outputs[start_index..stop_index]).iter()).collect();
+    let testing_data: Vec<(&Vec<f64>, &f64)> = (&training_testing_inputs[start_index..stop_index]).iter().zip((&training_testing_outputs[start_index..stop_index]).iter()).collect();
 
-    data
-}
-
-fn test_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift: bool) {
-    let mut sum_squared_diffs: f64 = 0.0;
-    let mut number: i64 = 0;
-    for (xs, y_actual) in get_testing_data(drag_not_lift) {
-        let y_predicted: f64 = regressor.predict(&*xs);
+    for (xs, y_actual) in testing_data {
+        let y_predicted: f64 = regressor.predict(xs.as_slice());
         sum_squared_diffs += (y_predicted - y_actual).powi(2);
         number += 1;
     }
+
     let mse: f64 = sum_squared_diffs / (number as f64);
     println!("The mean squared error of the drag coefficient estimator over the testing data was {}.", mse);
 }
