@@ -19,7 +19,7 @@ pub fn run_cli() {
     let wing_area: f64 = get_f64_user_input("What is the wing area of the aircraft (metres squared)?");
     let stl_model_file_path: String = get_string_user_input("What is the filepath of the STL file modelling the aircraft?");
 
-    let processed_stl_file: &[f64] = ml_coefficients_estimator::process_stl_file(stl_model_file_path.borrow());
+    let processed_stl_file: Vec<f64> = ml_coefficients_estimator::process_stl_file(stl_model_file_path.borrow());
     let lift_coefficient: f64 = ml_coefficients_estimator::estimate_lift_coefficient(&processed_stl_file);
     let drag_coefficient: f64 = ml_coefficients_estimator::estimate_drag_coefficient(&processed_stl_file);
 

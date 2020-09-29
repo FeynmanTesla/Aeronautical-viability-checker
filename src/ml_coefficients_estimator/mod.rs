@@ -10,20 +10,18 @@ mod lift_coeff_estimator;
 
 const PROPORTION_DATASET_TRAINING: f32 = 0.7;
 
-pub fn process_stl_file(stl_file_path: &str) -> &[f64] {
+pub fn process_stl_file(stl_file_path: &str) -> Vec<f64> {
     let mut file = OpenOptions::new().read(true).open(stl_file_path).unwrap();
     let stl: IndexedMesh = stl_io::read_stl(&mut file).unwrap();
     let mut vertex_coords: Vec<f64> = Vec::new();
 
-    for triangle in stl.faces {
-        for vertex in triangle.vertices.iter() {
-            for coord in vertex {
-                vertex_coords.push(coord as f64);
-            }
+    for vertex in stl.vertices {
+        for coord in vertex.iter() {
+            vertex_coords.push(*coord as f64);
         }
     }
 
-    vertex_coords.as_slice()
+    vertex_coords
 }
 
 pub fn estimate_drag_coefficient(processed_stl_file: &[f64]) -> f64 {
@@ -54,10 +52,10 @@ fn get_training_data(drag_not_lift: bool) -> Table<'static> {
     let training_testing_inputs = get_training_testing_inputs(drag_not_lift);
     let training_testing_outputs = get_training_testing_outputs(drag_not_lift);
     assert_eq!(training_testing_inputs.len(), training_testing_outputs.len());
-    let training_data: Vec<(Vec<f64>, f64)> = training_testing_inputs[0..num_dataset_values_training - 1].iter().zip(training_testing_outputs[0..num_dataset_values_training - 1].iter);
+    let training_data: Vec<(&Vec<f64>, &f64)> = (&training_testing_inputs[(0 as usize)..(num_dataset_values_training as usize - 1 as usize)]).iter().zip((&training_testing_outputs[(0 as usize)..(num_dataset_values_training as usize - 1 as usize)]).iter()).collect();
 
     for (xs, y) in training_data {
-        table_builder.add_row(&*xs, y);
+        table_builder.add_row(xs, *y);
     }
     table_builder.build().unwrap()
 }
@@ -76,20 +74,25 @@ fn make_random_forest_regressor(drag_not_lift: bool) -> RandomForestRegressor {
 }
 
 fn get_training_testing_inputs(drag_not_lift: bool) -> Vec<Vec<f64>> {
-    let outer_vec: Vec<&[f64]> = if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_INPUTS } else { lift_coeff_estimator::TRAINING_TESTING_INPUTS }.into_vec();
-    outer_vec.into_iter().map(|array| array.into_vec()).collect()
+    if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_INPUTS } else { lift_coeff_estimator::TRAINING_TESTING_INPUTS }
 }
 
 fn get_training_testing_outputs(drag_not_lift: bool) -> Vec<f64> {
-    if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_OUTPUTS } else { lift_coeff_estimator::TRAINING_TESTING_OUTPUTS }.into_vec()
+    if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_OUTPUTS } else { lift_coeff_estimator::TRAINING_TESTING_OUTPUTS }
 }
 
-fn get_testing_data(drag_not_lift: bool) -> Vec<(Vec<f64>, f64)> {
+fn get_testing_data(drag_not_lift: bool) -> Vec<(&'static Vec<f64>, &'static f64)> {
     let num_dataset_values_training: i64 = get_num_dataset_values_training(drag_not_lift);
     let training_testing_inputs = get_training_testing_inputs(drag_not_lift);
     let training_testing_outputs = get_training_testing_outputs(drag_not_lift);
     assert_eq!(training_testing_inputs.len(), training_testing_outputs.len());
-    training_testing_inputs[num_dataset_values_training..training_testing_inputs.len() - 1].iter().zip(training_testing_outputs[num_dataset_values_training..training_testing_outputs.len() - 1].iter)
+
+    let start_index: usize = num_dataset_values_training as usize;
+    let stop_index: usize = training_testing_inputs.len() as usize - 1 as usize;
+
+    let data: Vec<(&Vec<f64>, &f64)> = (&training_testing_inputs[start_index..stop_index]).iter().zip((&training_testing_outputs[start_index..stop_index]).iter()).collect();
+
+    data
 }
 
 fn test_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift: bool) {
@@ -105,11 +108,11 @@ fn test_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift
 }
 
 fn load_random_forest_regressor(drag_not_lift: bool) -> Option<RandomForestRegressor> {
-    RandomForestRegressor::deserialize(File::open(get_model_file_path(drag_not_lift))).ok()
+    RandomForestRegressor::deserialize(File::open(get_model_file_path(drag_not_lift)).unwrap()).ok()
 }
 
 fn save_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift: bool) {
-    let writer: File = File::create(get_model_file_path(drag_not_lift))?;
+    let writer: File = File::create(get_model_file_path(drag_not_lift)).ok().unwrap();
     regressor.serialize(writer).unwrap();
 }
 
