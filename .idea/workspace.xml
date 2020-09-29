@@ -30,8 +30,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bb09f3a-2ec4-4e0f-8e36-29dbbb51e0cb" name="Default Changelist" comment="fixed some compilation errors">
+    <list default="true" id="9bb09f3a-2ec4-4e0f-8e36-29dbbb51e0cb" name="Default Changelist" comment="fixed compilation errors of type conflicts when loading testing and training data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/drag_coeff_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/drag_coeff_estimator/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/lift_coeff_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/lift_coeff_estimator/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ml_coefficients_estimator/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ml_coefficients_estimator/mod.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +119,7 @@
       <workItem from="1601252577309" duration="157000" />
       <workItem from="1601252747364" duration="117000" />
       <workItem from="1601252875513" duration="478000" />
-      <workItem from="1601253367052" duration="14567000" />
+      <workItem from="1601253367052" duration="15413000" />
     </task>
     <task id="LOCAL-00001" summary="set up basic structure">
       <created>1601078307510</created>
@@ -210,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601340356289</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixed compilation errors of type conflicts when loading testing and training data">
+      <created>1601341713689</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1601341713689</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,7 +248,8 @@
     <MESSAGE value="implemented making regressors properly (afaik)" />
     <MESSAGE value="parameterised logic from modules based on both coefficients to overall ML coefficient estimator controller" />
     <MESSAGE value="fixed some compilation errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some compilation errors" />
+    <MESSAGE value="fixed compilation errors of type conflicts when loading testing and training data" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed compilation errors of type conflicts when loading testing and training data" />
   </component>
   <component name="WindowStateProjectService">
     <state x="738" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601075375250">
@@ -254,22 +264,22 @@
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state x="1703" y="311" width="424" height="491" key="FileChooserDialogImpl/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601150345040" />
-    <state width="1280" height="1015" key="GridCell.Tab.0.bottom" timestamp="1601341657554">
+    <state width="1280" height="1015" key="GridCell.Tab.0.bottom" timestamp="1601342507933">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state width="1280" height="1015" key="GridCell.Tab.0.bottom/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601341657554" />
-    <state width="1280" height="1015" key="GridCell.Tab.0.center" timestamp="1601341657554">
+    <state width="1280" height="1015" key="GridCell.Tab.0.bottom/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601342507933" />
+    <state width="1280" height="1015" key="GridCell.Tab.0.center" timestamp="1601342507933">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state width="1280" height="1015" key="GridCell.Tab.0.center/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601341657554" />
-    <state width="1280" height="1015" key="GridCell.Tab.0.left" timestamp="1601341657554">
+    <state width="1280" height="1015" key="GridCell.Tab.0.center/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601342507933" />
+    <state width="1280" height="1015" key="GridCell.Tab.0.left" timestamp="1601342507933">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state width="1280" height="1015" key="GridCell.Tab.0.left/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601341657554" />
-    <state width="1280" height="1015" key="GridCell.Tab.0.right" timestamp="1601341657554">
+    <state width="1280" height="1015" key="GridCell.Tab.0.left/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601342507933" />
+    <state width="1280" height="1015" key="GridCell.Tab.0.right" timestamp="1601342507933">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state width="1280" height="1015" key="GridCell.Tab.0.right/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601341657554" />
+    <state width="1280" height="1015" key="GridCell.Tab.0.right/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601342507933" />
     <state width="2514" height="340" key="GridCell.Tab.1.bottom" timestamp="1601082702855">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
@@ -290,10 +300,10 @@
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
     <state x="4" y="27" width="2338" height="1031" key="SettingsEditor/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601253422865" />
-    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601340357474">
+    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601341715226">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>
-    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601340357474" />
+    <state x="875" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.2560.1053/2560.0.2560.1080@0.27.2560.1053" timestamp="1601341715226" />
     <state x="890" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1601134056918">
       <screen x="0" y="27" width="2560" height="1053" />
     </state>

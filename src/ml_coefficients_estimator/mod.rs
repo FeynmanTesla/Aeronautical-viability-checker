@@ -55,7 +55,7 @@ fn get_training_data(drag_not_lift: bool) -> TableBuilder {
     let training_data: Vec<(&Vec<f64>, &f64)> = (&training_testing_inputs[(0 as usize)..(num_dataset_values_training as usize - 1 as usize)]).iter().zip((&training_testing_outputs[(0 as usize)..(num_dataset_values_training as usize - 1 as usize)]).iter()).collect();
 
     for (xs, y) in training_data {
-        table_builder.add_row(xs, *y);
+        table_builder.add_row(xs, *y).unwrap();
     }
     table_builder
 }
@@ -75,11 +75,11 @@ fn make_random_forest_regressor(drag_not_lift: bool) -> RandomForestRegressor {
 }
 
 fn get_training_testing_inputs(drag_not_lift: bool) -> Vec<Vec<f64>> {
-    if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_INPUTS } else { lift_coeff_estimator::TRAINING_TESTING_INPUTS }
+    if drag_not_lift { drag_coeff_estimator::get_training_testing_inputs() } else { lift_coeff_estimator::get_training_testing_inputs() }
 }
 
 fn get_training_testing_outputs(drag_not_lift: bool) -> Vec<f64> {
-    if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_OUTPUTS } else { lift_coeff_estimator::TRAINING_TESTING_OUTPUTS }
+    if drag_not_lift { drag_coeff_estimator::get_training_testing_outputs() } else { lift_coeff_estimator::get_training_testing_outputs() }
 }
 
 fn test_random_forest_regressor(regressor: &RandomForestRegressor, drag_not_lift: bool) {
@@ -120,6 +120,6 @@ pub fn estimate_coefficient(data: &[f64], drag_not_lift: bool) -> f64 {
 }
 
 fn get_num_dataset_values_training(drag_not_lift: bool) -> i64 {
-    let len: usize = if drag_not_lift { drag_coeff_estimator::TRAINING_TESTING_INPUTS.len() } else { lift_coeff_estimator::TRAINING_TESTING_INPUTS.len() };
+    let len: usize = if drag_not_lift { drag_coeff_estimator::get_training_testing_inputs().len() } else { lift_coeff_estimator::get_training_testing_inputs().len() };
     (PROPORTION_DATASET_TRAINING * len as f32).round() as i64
 }
